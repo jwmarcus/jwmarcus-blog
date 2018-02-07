@@ -45,10 +45,10 @@ Read the dataset, rename the columns to something reasonable.
 ```python
 df = pd.read_csv('./data/prospect_proforma.csv')
 
-old_names = ['Int?', 'Contact Type', 'Outreach', 'Connect',
-             'Stage', 'Reason', 'Intros?', 'FU Date',
+old_names = ['Int?', 'Contact Type', 'Outreach', 'Connect', 
+             'Stage', 'Reason', 'Intros?', 'FU Date', 
              'Last ACT', 'Meetings', 'Email Address', 'LI Link',
-             'Employees', 'Industry', 'First Name', 'Last Name',
+             'Employees', 'Industry', 'First Name', 'Last Name', 
              'Company', 'Position', 'Connected On', 'Tags']
 new_names = ['INTERESTED','CONTACT_REASON','CONTACTED','CONNECTED',
              'STAGE','CLOSED_LOST_REASON','PROVIDED_INTROS','FOLLOWUP_DATE',
@@ -159,23 +159,23 @@ def tag_stages(row):
     # Did they make an interview?
     if row.notnull()['STAGE'] and row['STAGE'] != 'UQ':
         return 'INTERVIEW'
-
+    
     # Did they make a meeting?
     elif row.notnull()['STAGE']:
         return 'MEETING'
-
+    
     # Did they reply to email?
     elif row['CONNECTED'] == 'Yes':
         return 'CONNECTED'
-
+    
     # Did I reach out to them?
     elif row['CONTACTED'] == 'Yes':
         return 'CONTACTED'
-
+    
     else:
         return 'UNCONTACTED'
 
-
+    
 df['FUNNEL_STAGE'] = df.apply(tag_stages, axis = 1)
 
 print(df['FUNNEL_STAGE'].value_counts())
@@ -263,7 +263,8 @@ Let's take a look at the distribution of company sizes throughout the funnel. Ag
 
 ```python
 employee_mapping = {'1-10': 1, '11-50': 2, '51-200': 3,
-                   '201-500': 4,'501-1000': 5, '10,000+': 6}
+                    '201-500': 4,'501-1000': 5, '1001-5000': 6, 
+                    '5001-10000': 7, '10,000+': 8}
 df['FUNNEL_EMPLOYEES_INT'] = df['EMPLOYEES'].map(employee_mapping)
 ```
 
@@ -275,13 +276,13 @@ def get_count_by_company_size(company_size_int):
     return df[(df['FUNNEL_EMPLOYEES_INT'] == company_size_int)]['FUNNEL_EMPLOYEES_INT'].count()
 
 employee_sizes = []
-for i in range(1, 7):
+for i in range(1, 9):
     employee_sizes.append((i, get_count_by_company_size(i)))
 
 print(employee_sizes)
 ```
 
-    [(1, 11), (2, 26), (3, 9), (4, 4), (5, 1), (6, 3)]
+    [(1, 11), (2, 26), (3, 9), (4, 4), (5, 1), (6, 10), (7, 0), (8, 3)]
 
 
 ### Plotting time!
@@ -291,9 +292,9 @@ print(employee_sizes)
 # This is the same as above, but looking across employee buckets
 plt.figure(figsize=(10, 6))
 plt.ylim(0,30)
-plt.xlim(0.5, 6.5)
+plt.xlim(0.5, 9.5)
 plt.plot(*zip(*employee_sizes))
-plt.xticks(range(1, 7), sorted(employee_mapping, key=employee_mapping.get))
+plt.xticks(range(1, 9), sorted(employee_mapping, key=employee_mapping.get))
 plt.title('Contact Count by Company Employee Size')
 
 plt.show()
@@ -313,15 +314,15 @@ Maybe the graph between the company size and the stage might light some insight
 ```python
 def get_employee_count_by_stage(contact):
     return (contact['FUNNEL_EMPLOYEES_INT'], contact['FUNNEL_STAGE_INT'])
-
+    
 employees_by_stage = []
 for _, contact in df[df['FUNNEL_EMPLOYEES_INT'].notnull()].iterrows():
     employees_by_stage.append(get_employee_count_by_stage(contact))
-
+    
 print(employees_by_stage[:5])
 ```
 
-    [(2.0, 3.0), (3.0, 2.0), (2.0, 3.0), (2.0, 2.0), (2.0, 2.0)]
+    [(2.0, 3.0), (6.0, 1.0), (3.0, 2.0), (6.0, 2.0), (2.0, 3.0)]
 
 
 
@@ -329,7 +330,7 @@ print(employees_by_stage[:5])
 # More figure and scale setup
 plt.figure(figsize=(10, 8))
 plt.ylim(-0.5, 5.5)
-plt.xlim(-0.5, 7.5)
+plt.xlim(-1.5, 9.5)
 
 # Seaborn likes explicit passes for params
 x, y = map(list, zip(*employees_by_stage))
@@ -337,7 +338,7 @@ x, y = map(list, zip(*employees_by_stage))
 # Let seaborn shine!
 ax = sns.kdeplot(x, y, n_levels=20, cmap="GnBu_d")
 
-plt.xticks(range(1, 7), sorted(employee_mapping, key=employee_mapping.get))
+plt.xticks(range(1, 9), sorted(employee_mapping, key=employee_mapping.get), rotation='vertical')
 plt.yticks(range(1, 5), sorted(mapping, key=mapping.get))
 plt.title('Contact Density by Company Employee Size and Stage')
 plt.show()

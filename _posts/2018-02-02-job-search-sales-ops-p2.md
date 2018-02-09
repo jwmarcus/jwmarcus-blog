@@ -11,6 +11,7 @@ _Quick links to other articles in this series:_
 - [Part 2: Establish metrics and a funnel](/2018/02/02/job-search-sales-ops-p2.html)
 - [Part 3: Analyze prospecting effectiveness](/2018/02/03/job-search-sales-ops-p3.html)
 - [Part 4: Scaling up efforts](/2018/02/04/job-search-sales-ops-p4.html)
+- [Part 5: Evaluating the results](/2018/02/05/job-search-sales-ops-p5.html)
 
 I'm currently looking for a role in sales operations, preferably at a fast growing, technology-focused company. I figured as I'm so focused on business operations, I might as well use my sales-ops skills to drive my search. I documented the process in this article.
 

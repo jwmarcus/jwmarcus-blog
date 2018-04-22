@@ -10,7 +10,7 @@ I want to tell you about one of the most touching experiences I've ever had. But
 
 The past few months for me were full of ups and downs on the personal front, which completely drained my "emotional fuel tank." So, I decided to do something about it and volunteered for the 2018 Boston Marathon as a radio communications (ham) volunteer. I spent weeks reading the documentation, programming frequencies and preparing my equipment. Finally, I packed up my gear Monday morning and headed out to my briefing.
 
-8:00 AM, Marathon Monday, I'm staring in the rain.
+8:00 AM, Marathon Monday, I'm staring into the rain.
 
 I was stationed at a medical tent, about 18 miles down the course. The weather was brutal by any account. 30+ MPH winds, constant downpour and upper 30-degree temperatures made conditions difficult as the ground beneath us turned to muck. The team captain asked a neighboring resident for a shovel and one of the medical staff began to dig a trench to move the water away from the cots. We used many of the ice bags on hand to weigh down the tents further to keep them from blowing away. Let's be honest, we weren't going to need to treat anyone that day for heat exhaustion in the ice-baths. We filled a cooler with hot water, boiled one kettle at a time, to keep the hot bags ready for runners.
 
